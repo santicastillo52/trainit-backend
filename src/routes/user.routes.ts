@@ -7,8 +7,8 @@ import { authenticateJWT } from "../middleware/auth.middleware";
 const router = Router();
 
 router.get("/", authenticateJWT, getUsers);
-router.patch("/:id", validateRequest(updateUserSchema), updateUser);
-router.delete("/:id", deleteUser);
+router.patch("/:id", validateRequest(updateUserSchema), authenticateJWT, updateUser);
+router.delete("/:id", authenticateJWT, deleteUser);
 
 
 export default router;
