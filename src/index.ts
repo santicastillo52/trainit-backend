@@ -3,6 +3,8 @@ import prisma from "./providers/prisma.provider";
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 import passport from './config/passport.config';
+const cors = require("cors");
+
 import 'dotenv/config';
 
 const app = express();
@@ -19,6 +21,7 @@ const startApp = async () => {
     console.log("Conexión a la base de datos exitosa.");
 
     app.use(express.json());
+    app.use(cors());
     app.get("/", (req, res) => {
       res.send("Hello World!");
     });
