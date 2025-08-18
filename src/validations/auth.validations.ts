@@ -49,3 +49,8 @@ export const loginValidation = Joi.object({
             'string.empty': 'La contraseña no puede estar vacía'
         })
 });
+
+export const updateUserSchema = Joi.object({
+    name: Joi.string().min(2).max(50).optional(),
+    email: Joi.string().email().optional(),
+});

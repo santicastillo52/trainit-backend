@@ -1,16 +1,17 @@
+import { findAllUsersFromDB, updateUserInDB, deleteUserFromDB } from '../providers/user.provider';
 
-import prisma from '../providers/prisma.provider';
-import { CreateUserData, User } from '../types/user';
 
 
 export class UserService {
-  async findAll() {
-    return await prisma.user.findMany();
+  async fetchAllUsers() {
+    return await findAllUsersFromDB();
   }
 
-  async createUser(userData: CreateUserData) {
-    return await prisma.user.create({
-      data: userData
-    });
-  }
+ async updateUser(userData: any, userId: string){
+  return await updateUserInDB(userData, userId);
+ }
+
+ async deleteUser(userId: string) {
+  return await deleteUserFromDB(userId);
+ }
 }
