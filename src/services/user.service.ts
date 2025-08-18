@@ -8,5 +8,9 @@ export class UserService {
     return await prisma.user.findMany();
   }
 
- 
+  async createUser(userData: CreateUserData) {
+    return await prisma.user.create({
+      data: userData
+    });
+  }
 }

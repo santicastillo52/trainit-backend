@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
 import prisma from "./providers/prisma.provider";
 import userRoutes from './routes/user.routes';
-import authRoutes from './routes/auth.services';
+import authRoutes from './routes/auth.routes';
+import passport from './config/passport.config';
 import 'dotenv/config';
 
 const app = express();
@@ -9,9 +10,11 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// Inicializar Passport
+app.use(passport.initialize());
+
 const startApp = async () => {
   try {
-    // Probamos la conexión a MongoDB con Prisma
     await prisma.$runCommandRaw({ ping: 1 });
     console.log("Conexión a la base de datos exitosa.");
 
