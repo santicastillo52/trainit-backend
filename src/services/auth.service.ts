@@ -40,33 +40,5 @@ export class AuthService {
         };
     }
 
-    async loginUser(email: string, password: string) {
-        const user = await prisma.user.findUnique({
-            where: { email }
-        });
-
-        if (!user) {
-            throw new Error('Credenciales inválidas');
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            throw new Error('Credenciales inválidas');
-        }
-
-        const token = generateToken({
-            id: user.id,
-            email: user.email,
-            name: user.name
-        });
-
-        return {
-            token,
-            user: {
-                id: user.id,
-                email: user.email,
-                name: user.name
-            }
-        };
-    }
+  
 }

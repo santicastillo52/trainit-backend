@@ -19,8 +19,6 @@ export const validateRequest = (schema: Schema) => {
                 errors: errorDetails
             });
         }
-
-        // Reemplazar req.body con los datos validados
         req.body = value;
         next();
     };

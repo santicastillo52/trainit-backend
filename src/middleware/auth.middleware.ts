@@ -14,7 +14,7 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
             });
         }
         
-        // Agregar el usuario autenticado a req.user
+
         req.user = user;
         next();
     })(req, res, next);
