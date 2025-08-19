@@ -39,30 +39,5 @@ class AuthService {
             },
         };
     }
-    async loginUser(email, password) {
-        const user = await prisma_provider_1.default.user.findUnique({
-            where: { email }
-        });
-        if (!user) {
-            throw new Error('Credenciales inválidas');
-        }
-        const isPasswordValid = await bcrypt_1.default.compare(password, user.password);
-        if (!isPasswordValid) {
-            throw new Error('Credenciales inválidas');
-        }
-        const token = (0, jwt_provider_1.generateToken)({
-            id: user.id,
-            email: user.email,
-            name: user.name
-        });
-        return {
-            token,
-            user: {
-                id: user.id,
-                email: user.email,
-                name: user.name
-            }
-        };
-    }
 }
 exports.AuthService = AuthService;

@@ -11,7 +11,6 @@ const authService = new auth_service_1.AuthService();
 const registerController = async (req, res) => {
     try {
         const userData = req.body;
-        console.log('Datos del usuario a registrar:', userData);
         const userRegistered = await authService.createUser(userData);
         res.status(201).json({
             message: 'Usuario registrado exitosamente',
@@ -20,7 +19,6 @@ const registerController = async (req, res) => {
     }
     catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
-        // Manejar errores específicos de Prisma
         if (errorMessage.includes('Unique constraint')) {
             return res.status(409).json({
                 message: 'El email ya está registrado',

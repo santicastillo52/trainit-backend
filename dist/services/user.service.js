@@ -1,18 +1,16 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-const prisma_provider_1 = __importDefault(require("../providers/prisma.provider"));
+const user_provider_1 = require("../providers/user.provider");
 class UserService {
-    async findAll() {
-        return await prisma_provider_1.default.user.findMany();
+    async fetchAllUsers() {
+        return await (0, user_provider_1.findAllUsersFromDB)();
     }
-    async createUser(userData) {
-        return await prisma_provider_1.default.user.create({
-            data: userData
-        });
+    async updateUser(userData, userId) {
+        return await (0, user_provider_1.updateUserInDB)(userData, userId);
+    }
+    async deleteUser(userId) {
+        return await (0, user_provider_1.deleteUserFromDB)(userId);
     }
 }
 exports.UserService = UserService;
