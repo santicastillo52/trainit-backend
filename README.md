@@ -2,6 +2,8 @@
 
 Una API REST robusta y escalable construida con Node.js, Express, TypeScript y Prisma, diseñada para gestionar usuarios y autenticación de manera segura.
 
+Se puede utilizar en https://trainit-backend-7ykt.onrender.com/
+
 ## 📋 Tabla de Contenidos
 
 - [Características](#-características)
