@@ -59,3 +59,35 @@ export const loginController = async (req: Request, res: Response, next: NextFun
     })(req, res, next);
 };
 
+export const logoutController = async (req: Request, res: Response) => {
+    try {
+        // Obtener el token del header Authorization
+        const authHeader = req.headers.authorization;
+        
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(400).json({ 
+                message: 'Token de autorización requerido',
+                error: 'TOKEN_REQUIRED'
+            });
+        }
+
+        const token = authHeader.substring(7); // Remover 'Bearer '
+        
+        // Revocar el token
+        const { tokenService } = await import('../services/token.service');
+        tokenService.revokeToken(token);
+        
+        res.json({ 
+            message: 'Logout exitoso',
+            success: true
+        });
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+        
+        res.status(500).json({ 
+            message: 'Error durante el logout', 
+            error: errorMessage 
+        });
+    }
+};
+
