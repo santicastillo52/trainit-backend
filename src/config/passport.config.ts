@@ -4,7 +4,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import bcrypt from 'bcrypt';
 import prisma from '../providers/prisma.provider';
 
-// Configuración de la estrategia local (email/password)
+
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
@@ -29,11 +29,16 @@ passport.use(new LocalStrategy({
     }
 }));
 
-// Configuración de la estrategia JWT
+
+if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET no está definido en las variables de entorno');
+}
+
+
 passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_SECRET || 'tu-secreto-jwt-aqui'
-}, async (payload, done) => {
+    secretOrKey: process.env.JWT_SECRET
+}, async (payload: any, done: any) => {
     try {
         const user = await prisma.user.findUnique({
             where: { id: payload.id }

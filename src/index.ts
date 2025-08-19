@@ -12,7 +12,6 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// Inicializar Passport
 app.use(passport.initialize());
 
 const startApp = async () => {

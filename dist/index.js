@@ -8,6 +8,7 @@ const prisma_provider_1 = __importDefault(require("./providers/prisma.provider")
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const passport_config_1 = __importDefault(require("./config/passport.config"));
+const cors = require("cors");
 require("dotenv/config");
 const app = (0, express_1.default)();
 const PORT = 3000;
@@ -19,6 +20,7 @@ const startApp = async () => {
         await prisma_provider_1.default.$runCommandRaw({ ping: 1 });
         console.log("Conexión a la base de datos exitosa.");
         app.use(express_1.default.json());
+        app.use(cors());
         app.get("/", (req, res) => {
             res.send("Hello World!");
         });

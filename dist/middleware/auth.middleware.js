@@ -16,7 +16,6 @@ const authenticateJWT = (req, res, next) => {
                 error: 'INVALID_TOKEN'
             });
         }
-        // Agregar el usuario autenticado a req.user
         req.user = user;
         next();
     })(req, res, next);
